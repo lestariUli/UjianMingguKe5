@@ -12,6 +12,8 @@ public class ConfigurationProperties {
 	@Value("${browser}")
 	private String browser;
 	
+	//atribut login
+	
 	@Value("${email}")
 	private String email;
 	
@@ -52,6 +54,43 @@ public class ConfigurationProperties {
 	public void setTxtWelcome(String txtWelcome) {
 		this.txtWelcome = txtWelcome;
 	}
+	
+	//atribut addToCart
+	@Value("${quantity}")
+	private String quantity;
+	
+	@Value("${size}")
+	private String size;
+	
+	@Value("${txtAddress}")
+	private String txtAddress;
+	
+	public String getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(String quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+	public String getTxtAddress() {
+		return txtAddress;
+	}
+
+	public void setTxtAddress(String txtAddress) {
+		this.txtAddress = txtAddress;
+	}
+
+	
+	
 
 	
 	

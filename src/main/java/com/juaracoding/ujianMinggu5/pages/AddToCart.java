@@ -1,5 +1,6 @@
 package com.juaracoding.ujianMinggu5.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,7 +18,6 @@ public class AddToCart {
 	}
 	
 	//locator
-	
 	@FindBy(css="#block_top_menu > ul > li:nth-child(1)")
 	private WebElement menu_women;
 	
@@ -27,14 +27,14 @@ public class AddToCart {
 	@FindBy(css="#block_top_menu > ul > li:nth-child(3)")
 	private WebElement menu_tshirt;
 	
-	@FindBy(css="#center_column > ul > li:nth-child(1) > div > div.right-block > div.button-container > a.button.lnk_view.btn.btn-default")
-	private WebElement btn_more_item_women;
+	@FindBy(xpath="//img[@title='Faded Short Sleeve T-shirts']")
+	private WebElement item_women;
 	
-	@FindBy(css="#center_column > ul > li.ajax_block_product.col-xs-12.col-sm-6.col-md-4.last-item-of-tablet-line.hovered > div > div.right-block > div.button-container > a.button.lnk_view.btn.btn-default")
-	private WebElement btn_more_item_dress; 
+	@FindBy(xpath="//*[@id=\"center_column\"]/ul/li[3]/div/div[1]/div/a[1]/img")
+	private WebElement item_dress; 
 
-	@FindBy(css="#center_column > ul > li > div > div.right-block > div.button-container > a.button.lnk_view.btn.btn-default")
-	private WebElement btn_more_item_tshirt;
+	@FindBy(xpath="//img[@title='Faded Short Sleeve T-shirts']")
+	private WebElement item_tshirt;
 	
 	@FindBy(id="quantity_wanted")
 	private WebElement quantity;
@@ -45,7 +45,7 @@ public class AddToCart {
 	@FindBy(id="color_13")
 	private WebElement colorWoman;
 	
-	@FindBy(id="color_7")
+	@FindBy(id="color_11")
 	private WebElement colorDress;
 	
 	@FindBy(id="add_to_cart")
@@ -57,11 +57,19 @@ public class AddToCart {
 	@FindBy(css="#layer_cart > div.clearfix > div.layer_cart_cart.col-xs-12.col-md-6 > div.button-container > a")
 	private WebElement btn_process_checkout;
 	
+	@FindBy(xpath="//a[@class='button btn btn-default standard-checkout button-medium']//span[contains(text(),'Proceed to checkout')]")
+	private WebElement btn_process_to_checkout;
+	
+	@FindBy(xpath="//label[@for='id_address_delivery']")
+	private WebElement txtAddress;
+	
 	public void addCartItemWomen() {
 		menu_women.click();
 		scroll(driver, "1000");
-		btn_more_item_women.click();
-		quantity.sendKeys("2");
+		item_women.click();
+		driver.switchTo().frame(driver.findElement(By.className("fancybox-iframe")));
+		
+		quantity.sendKeys("1");
 		select(size).selectByValue("2");
 		colorWoman.click();
 		btn_add_to_cart.click();
@@ -72,20 +80,23 @@ public class AddToCart {
 	public void addCartItemDress() {
 		menu_dress.click();
 		scroll(driver, "1000");
-		btn_more_item_dress.click();
+		item_dress.click();
+		driver.switchTo().frame(driver.findElement(By.className("fancybox-iframe")));
+		
 		quantity.sendKeys("3");
 		select(size).selectByValue("3");
 		colorDress.click();
 		btn_add_to_cart.click();
 		driver.switchTo().defaultContent();
 		btnContinueShoping.click();
-		
 	}
 	
 	public void addCartItemTshirt() {
 		menu_tshirt.click();
-		scroll(driver, "1000");
-		btn_more_item_tshirt.click();
+		scroll(driver, "800");
+		item_tshirt.click();
+		
+		driver.switchTo().frame(driver.findElement(By.className("fancybox-iframe")));
 		quantity.sendKeys("1");
 		select(size).selectByValue("1");
 		colorWoman.click();
@@ -93,6 +104,15 @@ public class AddToCart {
 		driver.switchTo().defaultContent();
 		btn_process_checkout.click();
 	}
+	
+	public void checkOut() {
+		btn_process_to_checkout.click();
+	}
+	
+	public String getTxtAddress() {
+		return txtAddress.getText();
+	}
+	
 	//method select
 	public static Select select(WebElement params) {
 		Select se = new Select(params);
